@@ -1,0 +1,23 @@
+{% import "bootstrap/wtf.html" as wtf%}
+{% extends "bootstrap/base.html" %}
+
+{% block head %}
+    {{ super() }}
+    {% block title%} WritePaper {% endblock %}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/pagedown/1.0/Markdown.Converter.js"> </script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/pagedown/1.0/Markdown.Editor.js"> </script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/pagedown/1.0/Markdown.Sanitizer.js"> </script>
+{% endblock %}
+
+{% block body %}
+    <div>
+        {{ wtf.quick_form(form) | safe }}
+        
+    </div>
+    
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    {{ pagedown.include_pagedown() }}
+{% endblock %}

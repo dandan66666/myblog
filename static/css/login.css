@@ -1,0 +1,35 @@
+body {
+	background-color: #EEEEEE;
+}
+
+.main {
+	max-width: 330px;
+	margin: auto;
+	
+}
+
+.form-signin {
+	padding: 15px;
+	background-color: #FFFFFF;
+	border-bottom: 1px solid;
+	border-left: 1px solid;
+	border-right: 1px solid;
+	border-color: #ddd;
+}
+
+.formsign {
+	margin-top: 10px;
+}
+
+.log-out {
+	margin: auto auto;
+}
+
+.main-container {
+	margin-top: 60px;
+}
+
+.search {
+	border-radius:  5px;
+	background-color: #EEEEEE;
+}
