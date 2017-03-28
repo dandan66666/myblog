@@ -6,7 +6,7 @@
 @created: 2017/03/26
 @updated: 2017/03/26
 """
-from flask import request, g, session, render_template
+from flask import request, g, session, render_template, redirect, url_for
 from functools import wraps
 from models.session import Session
 import hashlib
@@ -27,7 +27,7 @@ def auth(func):
                     setattr(g, 'username', data['username'])
                     return func(*args, **kwargs)
 
-        return render_template('login.html', error=u'请先登录再进行操作', type='login')
+        return redirect(url_for('login.login', error=True))
 
     return wrapper
 

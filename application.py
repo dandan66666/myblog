@@ -12,7 +12,7 @@ import os
 from datetime import timedelta
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
-from flask_pagedown import PageDown
+from flask_webpack import Webpack
 from config import BlogConfig
 
 
@@ -20,13 +20,15 @@ app = Flask(__name__)
 
 app.config.from_object('config.BlogConfig')
 
-app.config['FLASKY_POSTS_PER_PSGE'] = 20
+app.config['FLASKY_POSTS_PER_PSGE'] = 6
+
+# app.config['WEBPACK_MANIFEST_PATH'] = './build/manifest.json'
 
 db = SQLAlchemy(app)
 
 bootstrap = Bootstrap(app)
 
-pagedown = PageDown(app)
+# webpack = Webpack(app)
 
 # session_id
 app.secret_key = os.urandom(24)
@@ -49,4 +51,6 @@ from controllers.WritepaperController import writepaper_bp
 app.register_blueprint(writepaper_bp)
 
 
+from controllers.ReadpaperController import readpaper_bp
+app.register_blueprint(readpaper_bp)
 

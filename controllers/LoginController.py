@@ -27,6 +27,8 @@ def login():
     handle users' login
     """
     if request.method == 'GET':
+        if request.args.get('error', None) is not None:
+            return render_template('login.html', error=u'请先登录再进行操作', type='login')
         return render_template('login.html', error='', type='login')
 
     try:
@@ -49,7 +51,8 @@ def login():
                 data = eval(session_existed.data)
 
                 res = make_response(redirect(url_for('mainpage.mainpage')))
-                res.set_cookie('session_id', str(data['id']), expires=session_existed.expires)
+                res.set_cookie('session_id', str(session_existed.session_id), \
+                    expires=session_existed.expires)
                 return res
             else:
                 Session().delete(session_id=session_id)

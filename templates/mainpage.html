@@ -1,17 +1,15 @@
-{% extends "bootstrap/base.html" %}
+{% extends "_nav.html" %}
 
 {% block head%}
 {{ super() }}
-
-{% block title%}Mainpage{% endblock %}
+<link href={{url_for("static", filename="css/mainpage.css")}} type="text/css" rel="stylesheet" >
 {% endblock %}
 
 {% block body%}
+
+{{ _nav('mainpage') }}
+
 <div class = "container">
-    <nav class = "blog-nav">
-        <a class = "blog-nav-item" href="/writepaper">Write Blog</a>
-        <a class = "blog-nav-item" href="/logout">Log out </a>
-    </nav>
     <div class = "blog-header">
         <h1>{{username+"'s Blog" | capitalize}}</h1>
         <p class = "lead blog-description">Where there is a will, there is a way.</p>
@@ -19,21 +17,21 @@
     <div class = "row">
         <div class = "col-sm-8 blog-main">
             {% for p in papers %}
-            <div class = "blog-post">
+            <a class = "blog-post" href={{"readpaper/"+p.p_id | string}} >
                 <h3> {{p.title}} </h3>
                 <p> {{p.updated_at}} </p>
-            </div>
+            </a>
             {% endfor %}
         </div>
         <div class = "col-sm-3 blog-side">
         </div>
     </div>
-    <ul class = "nav nav-pills">
+    <ul class="nav nav-pills" id="pages">
         {% for i in range(1, pagination.pages+1)%}
         {% if pagination.page == i %}
-        <li role = "presentation" class = "active"><a href = {{"/mainpage/?page="+i|string}}></li>
+        <li role = "presentation" class = "active"><a href = {{"/mainpage?page="+i|string}}>{{i}}</a></li>
         {% else %}
-        <li role = "presentation"><a href = {{"/mainpage/?page="+i|string}}></li>
+        <li role = "presentation"><a href = {{"/mainpage?page="+i|string}}>{{i}}</a></li>
         {% endif %}
         {% endfor %}
     </ul>

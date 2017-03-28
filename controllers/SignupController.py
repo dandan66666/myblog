@@ -52,9 +52,9 @@ def signup():
         'username': username
         }
         expires = int(time.time())+10800
-        Session().create(session_id, expires, resp_data)
+        Session().create(session_id, expires, str(resp_data))
 
         res = make_response(redirect(url_for('mainpage.mainpage')),  200)
-        res.set_cookies('session_id', session_id, expires=expires)
+        res.set_cookie('session_id', str(session_id), expires=expires)
         return res
 

@@ -1,12 +1,16 @@
-{% extends "bootstrap/base.html" %}
+{% extends "_nav.html" %}
 
-{% block head %}
-
-{%block title%} ReadPaper {% endblock %}
+{% block head%}
+{{ super() }}
+<link href={{url_for("static", filename="css/readpaper.css")}} type="text/css" rel="stylesheet">
 {% endblock %}
 
 {% block body%}
 
-{{content}}
+{{ _nav('readpaper', paperid) }}
 
+<div id="container">
+{{content | safe}}
+
+</div>
 {% endblock %}

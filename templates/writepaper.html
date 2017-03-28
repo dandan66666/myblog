@@ -1,23 +1,53 @@
 {% import "bootstrap/wtf.html" as wtf%}
-{% extends "bootstrap/base.html" %}
+
+{% extends "_nav.html" %}
 
 {% block head %}
     {{ super() }}
-    {% block title%} WritePaper {% endblock %}
-    <script src="//cdnjs.cloudflare.com/ajax/libs/pagedown/1.0/Markdown.Converter.js"> </script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/pagedown/1.0/Markdown.Editor.js"> </script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/pagedown/1.0/Markdown.Sanitizer.js"> </script>
+    <link href={{url_for("static", filename="css/writepaper.css")}} type = "text/css" rel = "stylesheet" >
+    <link href="static/css/prettify.css" type="text/css" rel="stylesheet" />
+    <script src="static/js/Markdown.Converter.js" type = "text/javascript"> </script>
+    <script src="static/js/Markdown.Editor.js" type = "text/javascript"> </script>
+    <script src="static/js/Markdown.Sanitizer.js" type = "text/javascript"> </script>
+    <script src="static/js/Markdown.Extra.js" type="text/javascript"></script>
+    <script src="static/js/prettify.js" type="text/javascript"></script>
 {% endblock %}
 
-{% block body %}
-    <div>
-        {{ wtf.quick_form(form) | safe }}
-        
+{% block body%}
+
+{{ _nav('writepaper') }}
+<div id="container">
+    <form method="POST" action="/writepaper">
+    <div class="form-group">
+        <div class="row">
+            <input id="title" type="text" class="col-md-10" name="title" placeholder="标题" value={{title}}>{{title}}
+            <input name="id" style="display:none;" value={{id}}></input>
+            <button class="btn btn-info col-md-1" id="submit" type="submit">Submit</button>
+        </div>
     </div>
-    
-{% endblock %}
-
-{% block scripts %}
-    {{ super() }}
-    {{ pagedown.include_pagedown() }}
+    <div class = "row">
+        <div class = "col-md-6">
+            <div id="wmd-preview" class="wmd-panel wmd-preview"></div>
+        </div>
+        <div class = "col-md-6">
+            <div class="form-group">
+                <textarea id="wmd-input" class="wmd-input full-textarea"
+                placeholder="内容" name="content">{{content}}</textarea>
+            </div>
+        </div>
+    </div>
+    </form>
+</div>
+<script>
+    (function() {
+    var converter = Markdown.getSanitizingConverter();
+    Markdown.Extra.init(converter, {
+        extensions: "all",
+        highlighter: "prettify"
+    });
+    var editor = new Markdown.Editor(converter);
+    editor.hooks.chain("onPreviewRefresh", prettyPrint);
+    editor.run();  
+    })();  
+</script>
 {% endblock %}
