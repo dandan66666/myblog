@@ -2,22 +2,23 @@
 
 {% block head%}
 {{ super() }}
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href={{url_for("static", filename="css/mainpage.css")}} type="text/css" rel="stylesheet" >
 {% endblock %}
 
 {% block body%}
 
-{{ _nav('mainpage') }}
+{{ _nav(type) }}
 
 <div class = "container">
     <div class = "blog-header">
-        <h1>{{username+"'s Blog" | capitalize}}</h1>
+        <h1>{{username | capitalize}}</h1>
         <p class = "lead blog-description">Where there is a will, there is a way.</p>
     </div>
     <div class = "row">
         <div class = "col-sm-8 blog-main">
             {% for p in papers %}
-            <a class = "blog-post" href={{"readpaper/"+p.p_id | string}} >
+            <a class = "blog-post" href={{"readpaper?paperid="+p.p_id | string}} >
                 <h3> {{p.title}} </h3>
                 <p> {{p.updated_at}} </p>
             </a>

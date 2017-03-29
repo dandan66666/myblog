@@ -4,6 +4,7 @@
 
 {% block head %}
     {{ super() }}
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link href={{url_for("static", filename="css/writepaper.css")}} type = "text/css" rel = "stylesheet" >
     <link href="static/css/prettify.css" type="text/css" rel="stylesheet" />
     <script src="static/js/Markdown.Converter.js" type = "text/javascript"> </script>
@@ -20,8 +21,8 @@
     <form method="POST" action="/writepaper">
     <div class="form-group">
         <div class="row">
-            <input id="title" type="text" class="col-md-10" name="title" placeholder="标题" value={{title}}>{{title}}
-            <input name="id" style="display:none;" value={{id}}></input>
+            <input id="title" type="text" class="col-md-10" name="title" placeholder="标题" value='{{title}}'>
+            <input name="id" style="display:none;" value={{id}}>
             <button class="btn btn-info col-md-1" id="submit" type="submit">Submit</button>
         </div>
     </div>

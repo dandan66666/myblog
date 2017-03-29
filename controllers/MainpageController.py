@@ -21,15 +21,11 @@ mainpage_bp = Blueprint('mainpage', __name__, url_prefix='/mainpage')
 @mainpage_bp.route('', methods=['GET'])
 @auth
 def mainpage():
-    userid = getattr(g, 'u_id')
-    username = getattr(g, 'username')
-    if userid is None:
-        abort(400)
     page = request.args.get('page', 1, type=int)
-    pagination = Paper.query.filter_by(u_id=userid).order_by(Paper.updated_at.desc()).paginate(
+    pagination = Paper.query.order_by(Paper.updated_at.desc()).paginate(
         page, per_page=current_app.config['FLASKY_POSTS_PER_PSGE'],
         error_out=False
         )
     papers = pagination.items
     return render_template('mainpage.html', papers=papers, pagination=pagination, \
-        username=username)
+        username=u'博客广场', type='mainpage')

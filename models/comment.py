@@ -16,6 +16,8 @@ class Comment(db.Model):
         db.Column('u_id', db.BigInteger, db.ForeignKey('user.u_id'), nullable=False),
         db.Column('p_id', db.BigInteger, db.ForeignKey('paper.p_id'), nullable=False),
         db.Column('content', db.VARCHAR(200), nullable=False),
+        db.Column('created_at', db.DateTime, default=db.text("CURRENT_TIMESTAMP")),
+        db.Column('updated_at', db.DateTime, default=db.text("CURRENT_TIMESTAMP")),
         mysql_engine='InnoDB',
         mysql_charset='utf8'
 
@@ -23,6 +25,16 @@ class Comment(db.Model):
 
     def save(self):
         db.session.add(self)
+        db.session.commit()
+
+    def create(self, u_id, p_id, content):
+        self.u_id = u_id
+        self.p_id = p_id
+        self.content = content
+        self.save()
+
+    def delete(self):
+        db.session.delete(self)
         db.session.commit()
 
 

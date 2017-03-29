@@ -9,7 +9,7 @@
 
 from flask_wtf import Form
 from flask import Blueprint, request, render_template, session, g, redirect, \
-                    url_for
+                    url_for, abort
 from markdown import markdown
 import bleach
 
@@ -33,6 +33,11 @@ def writepaper():
 
         if paperid is not None:
             paper_existed = Paper.query.filter_by(p_id=paperid).first()
+
+            # 不是本人写的博客不能修改
+            if paper_existed.u_id != getattr(g, 'u_id'):
+                abort(403)
+            
             if paper_existed is not None:
                 content = ''
                 with open(paper_existed.path+'_md.txt', 'r') as fp:
@@ -55,11 +60,12 @@ def writepaper():
     title = request.form['title']
 
     print 'paperid', paperid
+    print 'type ', type(md)
 
     # 创建一篇新的文章
     if int(paperid) == 0:
         last = Paper.query.order_by(Paper.p_id.desc()).first()
-        print 'last', last
+        # print 'last', last
         if last is None:
             paperid = 1
             print 'None', paperid
