@@ -31,6 +31,8 @@ CREATE TABLE IF NOT EXISTS `comment` (
     `u_id` bigint unsigned NOT NULL,
     `p_id` bigint unsigned NOT NULL,
     `content` varchar(200) NOT NULL,
+    `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY(`c_id`),
     FOREIGN KEY(`u_id`) references user(`u_id`) on delete cascade on update cascade,
     FOREIGN KEY(`p_id`) references paper(`p_id`) on delete cascade on update cascade

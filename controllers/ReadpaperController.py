@@ -10,6 +10,7 @@
 from flask import Blueprint, request, g, abort, render_template
 from common.functions import auth
 from models.paper import Paper
+from controllers.ManagecommentController import get_comments
 
 readpaper_bp = Blueprint('readpaper', __name__, url_prefix='/readpaper')
 
@@ -33,8 +34,11 @@ def showpaper():
         with open(path+'_html.txt', 'r') as fp:
             html = fp.read()
         html = '<h1>'+title.encode('utf-8')+'</h1>'+html
+
+        comments = get_comments(paperid)
+
         return render_template('readpaper.html', content=html.decode('utf-8'), \
-            paperid=paper_existd.p_id, modified=modified)
+            paperid=paper_existd.p_id, modified=modified, comments=comments)
     abort(400)
 
 

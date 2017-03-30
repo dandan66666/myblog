@@ -57,4 +57,9 @@ app.register_blueprint(readpaper_bp)
 from controllers.MyblogController import myblog_bp
 app.register_blueprint(myblog_bp)
 
+from controllers.ManagecommentController import managecomment_bp
+app.register_blueprint(managecomment_bp)
+
+
+
 

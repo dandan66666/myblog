@@ -27,10 +27,14 @@ class Comment(db.Model):
         db.session.add(self)
         db.session.commit()
 
-    def create(self, u_id, p_id, content):
+    def create(self, u_id, p_id, content, created_at=None, updated_at=None):
         self.u_id = u_id
         self.p_id = p_id
         self.content = content
+        if created_at is not None:
+            self.created_at = created_at
+        if updated_at is not None:
+            self.updated_at = updated_at
         self.save()
 
     def delete(self):
