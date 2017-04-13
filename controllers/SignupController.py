@@ -28,6 +28,9 @@ def signup():
             password = request.form['password']
             confirm = request.form['confirm']
 
+            
+
+
             username_existed = User.query.filter_by(username=username).first()
 
             if username_existed is not None:

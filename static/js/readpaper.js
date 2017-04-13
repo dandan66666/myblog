@@ -20,10 +20,14 @@ window.onload = function() {
                 result = JSON.parse(result)
                 commentid = result["commentid"];
                 username = result["username"];
-                html = "<div class=\"existd_comment\" id="+commentid.toString()+" >"
-                    +"<div class=\"comment_header\">"+username+":"+"</div>"
+                time = result["time"]
+                html = "<div class=\"existed_comment\" id="+commentid.toString()+" >"
+                    +"<div class=\"comment_header\">"
+                    +"<span class=\"comment_author\">"+username+"    "+"</span>"
+                    +"<span class=\"comment_time\">"+time+"</span></div>"
                     +"<div class=\"comment_content\">"+comment+"</div></div>";
                 $(".existed_comments").append(html);
+                $("#write_comment").val("");
             } 
         })
     });

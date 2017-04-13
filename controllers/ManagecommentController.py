@@ -14,6 +14,7 @@ from models.user import User
 from common.functions import auth, convert_jstime_to_datetime
 
 import json
+from datetime import datetime
 
 managecomment_bp = Blueprint('managecomment', __name__, url_prefix='/comment')
 
@@ -50,10 +51,13 @@ def add_comment():
     if posted is not None:
         paperid = int(posted['paperid'])
         userid = getattr(g, 'u_id')
-        time_ = posted['time_']
+        time_ = posted['time']
         time_ = convert_jstime_to_datetime(time_)
         comment = posted['content']
         Comment().create(userid, paperid, comment, updated_at=time_)
+        
+
+        print comment
         
         user_existd = User.query.filter_by(u_id=userid).first()
         if user_existd is not None:
@@ -66,11 +70,11 @@ def add_comment():
             commentid = comment_existed.c_id
         else:
             commentid = 0
-        print commentid
-        print 'here'
+        
         out = {
         'username': username,
-        'commentid': commentid
+        'commentid': commentid,
+        'time': time_.strftime("%Y-%m-%d %H:%m:%S")
         }
         
         return json.dumps(out)
@@ -96,7 +100,7 @@ def delete_comment():
     commentid = request.args.get('commentid', None)
     if commentid is not None:
         comment_existed = Comment.query.filter_by(c_id=commentid).first()
-        if comment_existed is not None:
+        if comment_existed is not None and comment_existed.u_id == getattr(g, 'u_id'):
             comment_existed.delete()
             return True
     return False

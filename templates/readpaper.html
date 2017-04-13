@@ -19,17 +19,23 @@
     <div class="comments">
         <div class="existed_comments">
             {% for comment in comments %}
-            <div class="existd_comment" id="{{comment.id|int}}" >
-                <div class="comment_time">{{comment.time}}</div>
-                <div class="comment_header">{{comment.author + ":"}}</div>
+            {% autoescape true %}
+            <div class="existed_comment" id="{{comment.id|int}}" >
+                <div class="comment_header">
+                    <span class="comment_author">{{comment.author+"   "}}</span>
+                    <span class="comment_time">{{comment.time}}</span>
+                </div>
                 <div class="comment_content">{{comment.content}}</div>
             </div>
+            {% endautoescape %}
             {% endfor %}
         </div>
             
         <div class="write_comments">
             <span id="paperid" style="display:none;">{{paperid}}</span>
+            {% autoescape true %}
             <textarea class="write_comment form-control" placeholder="写下你的想法吧！" rows="5" id="write_comment" maxlength="200"></textarea>
+            {% endautoescape %}
             <button id="submit_comment" class="btn btn-primary">提交</button>
         </div>
     </div>

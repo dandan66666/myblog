@@ -3,22 +3,44 @@ h1 {
 }
 
 #container {
+    margin-top: 60px;
     margin-left: auto;
     margin-right: auto;
-    max-width: 600px;
+    max-width: 800px;
     min-height: 300px;
+    padding: 5px;
 }
 
-/*.comments {
-    position: absolute;
-    bottom: 20px;
-}*/
+.content {
+    min-height: 50px;
+    border: 1px solid #ccc;
 
-/*.existed_comments {
-    max-height: 150px;
-}*/
+}
+
+.comments {
+    margin-top: 20px;
+}
+
+.existed_comment {
+    min-height: 30px;
+    margin: 8px;
+    padding: 5px;
+}
+
+.existed_comments {
+    margin-bottom: 20px;
+}
 
 .write_comment {
     min-width: 400px;
     margin-bottom: 20px;
+}
+
+.comment_content {
+    font-size: 20px;
+}
+
+.comment_header {
+    background-color: #F1F1F1;
+    border-radius: 3px;
 }

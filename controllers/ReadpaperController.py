@@ -19,7 +19,11 @@ readpaper_bp = Blueprint('readpaper', __name__, url_prefix='/readpaper')
 def showpaper():
     paperid = request.args.get('paperid', None)
     if paperid is not None:
-        print paperid
+        try:
+            paperid = int(paperid)
+        except:
+            abort(400)
+        
         paper_existd = Paper.query.filter_by(p_id=paperid).first()
         path = paper_existd.path
         title = paper_existd.title

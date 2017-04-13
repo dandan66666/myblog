@@ -45,7 +45,7 @@ def convert_password(password):
     return hashlib.sha1(password).hexdigest()
 
 def convert_jstime_to_datetime(time_):
-    return datetime.datetime.totimestamp(time_)
+    return datetime.datetime.fromtimestamp(time_/1000.0)
 
 
 

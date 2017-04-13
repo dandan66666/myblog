@@ -6,15 +6,15 @@
 @created: 2017/03/26
 @updated: 2017/03/26
 """
-from flask import Flask, Blueprint
+from flask import Flask
 
 import os
-from datetime import timedelta
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
 from flask_webpack import Webpack
 from config import BlogConfig
 
+from datetime import timedelta
 
 app = Flask(__name__)
 
